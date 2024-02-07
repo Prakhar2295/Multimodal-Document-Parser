@@ -297,7 +297,7 @@ inference_on_dataset(trainer.model, val_loader, evaluator)
 
 
 
-import pandas as pd
+
 metrics_df = pd.read_json("./output/metrics.json", orient="records", lines=True)
 mdf = metrics_df.sort_values("iteration")
 mdf.head(10).T
