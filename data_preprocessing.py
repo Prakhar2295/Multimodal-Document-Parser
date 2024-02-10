@@ -24,8 +24,9 @@ class image_preprocessing:
 			if rotate > 0:
 				timestamp = datetime.now().strftime("%Y%m%d%H%M%S")
 				im_fixed = im.copy().rotate(rotate)
-				im_fixed.save(f"/rotated_img_dir/self.filename_rotated_{timestamp}.jpg")
-				return True
+				image_name = f"/rotated_img_dir/self.filename_rotated_{timestamp}.jpg"
+				im_fixed.save(image_name)
+				return True,image_name
 			else:
 				return False
 
@@ -79,12 +80,13 @@ class image_preprocessing:
 
 			if angle[angle_m] > 0:
 				timestamp = datetime.now().strftime("%Y%m%d%H%M%S")
-				cv2.imwrite(f"/skew_img_dir/self.filename_rotated_{timestamp}.jpg",res)
-				return True
+				image_name = f"/skew_img_dir/self.filename_rotated_{timestamp}.jpg"
+				cv2.imwrite(image_name,res)
+				return True,image_name
 			else:
 				return False
 
-	def remove_watermarks_(self):
+	def remove_watermarks(self):
 		if self.filename is not None:
 			img = cv2.imread(self.filename)
 			# Convert the image to grayscale
@@ -109,7 +111,9 @@ class image_preprocessing:
 			# Paste the extracted darker pixels in the watermark region
 			bw[np.where(dark > 0)] = darkpix.T
 			timestamp = datetime.now().strftime("%Y%m%d%H%M%S")
-			cv2.imwrite(f"/background_preprocess_dir/self.filename_rotated_{timestamp}.jpg",bw)
+			image_name = f"/background_preprocess_dir/self.filename_rotated_{timestamp}.jpg"
+			cv2.imwrite(image_name,bw)
+			return image_name
 
 
 	def document_dewarping(self):

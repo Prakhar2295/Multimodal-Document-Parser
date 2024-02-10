@@ -99,4 +99,4 @@ def prediction(image_path,model_path):
     }
 
     df = pd.DataFrame(table_dict)
-    df.to_csv("us_table.csv")
+    return df.to_csv("us_table.csv")
