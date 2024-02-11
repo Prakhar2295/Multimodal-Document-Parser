@@ -1,6 +1,7 @@
 import pdfplumber
 import pypdfium2 as pdfium
 from datetime import datetime
+import os
 
 class data_preparation:
 	def __init__(self,filename:str):
@@ -12,6 +13,9 @@ class data_preparation:
 			page = pdf.get_page(0)
 			pil_image = page.render(scale=300 / 25).to_pil()
 			timestamp = datetime.now().strftime("%Y%m%d%H%M%S")
+   
+			if not os.path.isdir("pdf_to_img"):
+				os.mkdir("pdf_to_img")
 
 			#image_name = f"/pdf_to_img/{self.filename[:-4]}.jpg"
 			image_name = f"/pdf_to_img/{self.filename[:-4]}_{timestamp}.jpg"

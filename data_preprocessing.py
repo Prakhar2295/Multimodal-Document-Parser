@@ -21,6 +21,9 @@ class image_preprocessing:
 			osd = pytesseract.image_to_osd(im, output_type='dict')
 			rotate = osd['rotate']
 
+			if not os.path.isdir("rotated_img_dir"):
+				os.mkdir("rotated_img_dir")
+
 			if rotate > 0:
 				timestamp = datetime.now().strftime("%Y%m%d%H%M%S")
 				im_fixed = im.copy().rotate(rotate)
@@ -78,6 +81,9 @@ class image_preprocessing:
 			M[1, 2] += (heightNew - height) / 2
 			res = cv2.warpAffine(img, M, (widthNew, heightNew))
 
+			if not os.path.isdir("skew_img_dir"):
+				os.mkdir("skew_img_dir")
+
 			if angle[angle_m] > 0:
 				timestamp = datetime.now().strftime("%Y%m%d%H%M%S")
 				image_name = f"/skew_img_dir/self.filename_rotated_{timestamp}.jpg"
@@ -111,6 +117,11 @@ class image_preprocessing:
 			# Paste the extracted darker pixels in the watermark region
 			bw[np.where(dark > 0)] = darkpix.T
 			timestamp = datetime.now().strftime("%Y%m%d%H%M%S")
+
+			if not os.path.isdir("background_preprocess_dir"):
+				os.mkdir("background_preprocess_dir")
+
+
 			image_name = f"/background_preprocess_dir/self.filename_rotated_{timestamp}.jpg"
 			cv2.imwrite(image_name,bw)
 			return image_name
